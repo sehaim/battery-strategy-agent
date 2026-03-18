@@ -74,7 +74,7 @@ battery-agent/
 ```bash
 # 1. 환경 설정
 pip install -r requirements.txt
-cp .env.example .env    # OPENAI_API_KEY 입력
+cp .env.example .env    # OPENAI_API_KEY, TAVILY_API_KEY 입력
 
 # 2. 실행
 python app.py
