@@ -42,14 +42,19 @@
 | Report Writer | Markdown 보고서 생성 + PDF 변환 |
 | Error Handler | retry · fallback 전환 |
 
+## Architecture
+
+
+
+
 ## Directory Structure
 
 ```
 battery-agent/
 ├── data/
-│   ├── lg/              # LG 전용 PDF (최대 ~50p)
-│   ├── catl/            # CATL 전용 PDF (최대 ~35p)
-│   └── market/          # 시장 배경 보고서 (~15p)
+│   ├── lg/              # LG 전용 PDF
+│   ├── catl/            # CATL 전용 PDF
+│   └── market/          # 시장 배경 보고서
 ├── agents/              # 에이전트 모듈
 ├── retrieval/           # PDF 로더 + FAISS 임베더
 ├── prompts/             # 프롬프트 템플릿
@@ -70,16 +75,10 @@ battery-agent/
 pip install -r requirements.txt
 cp .env.example .env    # OPENAI_API_KEY 입력
 
-# 2. PDF 배치
-# data/lg/, data/catl/, data/market/ 에 PDF 파일 추가
-
-# 3. 실행
+# 2. 실행
 python app.py
 python app.py --query "LG에너지솔루션과 CATL의 ESS 전략 비교"
 python app.py --rebuild-index   # 인덱스 재구축
-
-# 4. 테스트
-python tests/test_state.py
 ```
 
 ## Contributors

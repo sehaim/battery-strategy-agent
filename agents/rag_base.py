@@ -1,4 +1,5 @@
 """RAG 에이전트 공통 로직"""
+from __future__ import annotations
 import os
 import logging
 from langchain_openai import ChatOpenAI
