@@ -21,7 +21,7 @@ class AgentState(TypedDict):
     implications: Optional[str]
     draft_report: Optional[str]
     final_report: Optional[str]
-    references:   List[str]
+    references:   Annotated[List[str], operator.add]
 
     # Reflect
     quality_passed:    bool

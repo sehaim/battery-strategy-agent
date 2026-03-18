@@ -34,6 +34,12 @@ def swot_node(state: AgentState) -> dict:
             logger.warning("SWOT JSON 파싱 실패 → 텍스트로 저장")
             swot_lg   = {"raw": response}
             swot_catl = {"raw": response}
+            return {
+                "swot_lg":      swot_lg,
+                "swot_catl":    swot_catl,
+                "error_log":    [f"swot_json_parse: LLM 응답이 유효한 JSON이 아님 — SWOT 구조 불완전할 수 있음"],
+                "current_step": "swot_done",
+            }
 
         logger.info("[SWOT Agent] 완료")
         return {

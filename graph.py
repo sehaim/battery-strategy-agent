@@ -54,13 +54,13 @@ def build_graph():
                  "aggregator", "swot", "insight"]:
         graph.add_edge(node, "supervisor")
 
-    # Reflect → 조건부: PASS → report_writer | FAIL → swot
+    # Reflect → 조건부: PASS → report_writer | FAIL → report_writer(피드백 반영 재작성)
+    # swot으로 돌아가면 동일 merged_data로 동일 결과 반복되므로 report_writer에서 피드백 반영
     graph.add_conditional_edges(
         "reflect",
-        lambda s: "report_writer" if s.get("quality_passed") else "swot",
+        lambda s: "report_writer",
         {
             "report_writer": "report_writer",
-            "swot":          "swot",
         },
     )
 

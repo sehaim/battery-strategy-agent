@@ -43,13 +43,18 @@ def build_store(data_dir: str, cache_path: str) -> FAISSVectorStore | None:
 
 
 def run_rag(store: FAISSVectorStore | None, query: str, prompt_template: str,
-            fallback_msg: str) -> str:
-    """RAG 검색 후 LLM 분석 실행"""
+            fallback_msg: str) -> tuple[str, list[str]]:
+    """RAG 검색 후 LLM 분석 실행. (분석결과, 출처목록) 튜플 반환"""
     if store:
         results = store.search(query)
+        if not results:
+            logger.warning(f"RAG 검색 결과 없음 (query='{query[:50]}')")
         context = store.format_context(results)
+        sources = [f"{r['source']} p.{r['page']}" for r in results]
     else:
+        logger.warning(f"벡터 스토어 없음 → fallback 사용: {fallback_msg}")
         context = fallback_msg
+        sources = []
 
     llm = get_llm()
     prompt = prompt_template.format(context=context, query=query)
@@ -57,4 +62,4 @@ def run_rag(store: FAISSVectorStore | None, query: str, prompt_template: str,
         SystemMessage(content=RAG_SYSTEM),
         HumanMessage(content=prompt),
     ])
-    return response.content
+    return response.content, sources
