@@ -45,7 +45,7 @@
 ## Architecture
 
 <p align="center">
-  <img src="assets/architecture.png" alt="Architecture" />
+  <img src="assets/architecture.png" alt="Architecture" width=600px/>
 </p>
 
 ## Directory Structure
